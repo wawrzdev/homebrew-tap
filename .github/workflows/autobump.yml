@@ -1,0 +1,33 @@
+name: autobump casks
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # daily 09:00 UTC
+  workflow_dispatch: {}    # allow manual runs
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bump casks to latest upstream versions
+        id: bump
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/bump-casks.sh
+
+      - name: Commit & push if changed
+        run: |
+          if [ -n "$(git status --porcelain Casks)" ]; then
+            git config user.name  "cask-autobump[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add Casks
+            git commit -m "autobump: update cask versions + checksums [skip ci]"
+            git push
+          else
+            echo "nothing to commit"
+          fi
