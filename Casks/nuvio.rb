@@ -1,11 +1,11 @@
 cask "nuvio" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "0.1.21-alpha"
+  version "0.1.22-alpha"
   # Pinned per-arch checksums (integrity check). Bump these in the SAME commit that bumps `version`
   # — get them from: gh api repos/NuvioMedia/NuvioDesktop/releases/latest --jq '.assets[].digest'
-  sha256 arm:   "9acff93ef9642531da14fc104d44e553c73c256f96152e07c57bd25f9cfd484d",
-         intel: "fe7ffb2eb5e386496b44866a20e403be92f6b01a2a642e5e45fdb8b250894203"
+  sha256 arm:   "87de328aa96c1a28902930d760ef0a3cc48eb8655fd7fe8f04ccc56b47109b2b",
+         intel: "ef404bdb48bb8009365d9df7ffbb62946221a10726efc4335b9d7d8568851d77"
 
   url "https://github.com/NuvioMedia/NuvioDesktop/releases/download/#{version}/Nuvio-macOS-#{arch}-#{version}.dmg",
       verified: "github.com/NuvioMedia/NuvioDesktop/"
